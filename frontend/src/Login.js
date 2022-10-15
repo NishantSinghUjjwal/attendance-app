@@ -4,7 +4,7 @@ function Login() {
   return (
     <div className="login-container">
       <h1 className="login-heading">Login</h1>
-      <input className="login-input input" placeholder="Email"></input>
+      {/* <input className="login-input input" placeholder="Username"></input> */}
       <input className="login-input input" placeholder="Password"></input>
       <button className="btn">LogIn</button>
       <p className="suggestion">
