@@ -19,7 +19,7 @@ router.post("/add-subject", async (req, res) => {
   }
 });
 
-router.post("/fetch-subject", async (req, res) => {
+router.get("/fetch-subject", async (req, res) => {
   try {
     const subject = await SubjectService.getByCode(req.body);
     const response = {};
@@ -36,7 +36,7 @@ router.post("/fetch-subject", async (req, res) => {
   }
 });
 
-router.post("/fetch-subject-list", async (req, res) => {
+router.get("/fetch-subject-list", async (req, res) => {
   try {
     const subjects = await SubjectService.getList();
     const response = {};

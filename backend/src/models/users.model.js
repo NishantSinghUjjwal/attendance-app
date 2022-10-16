@@ -47,6 +47,7 @@ class UserModel {
   async add(user) {
     const userModel = new this.model(user);
     const response = await userModel.save();
+    response.password = undefined;
     return response;
   }
 
