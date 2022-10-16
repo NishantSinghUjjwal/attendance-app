@@ -4,12 +4,14 @@ const Schema = {
   first_name: {
     type: String,
     required: true,
-    index: true,
+  },
+  middle_name: {
+    type: String,
+    required: true,
   },
   last_name: {
     type: String,
     required: true,
-    index: true,
   },
   username: {
     type: String,
@@ -17,7 +19,12 @@ const Schema = {
     unique: true,
     index: true,
   },
-  role: { type: String },
+  subject: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
   password: {
     type: String,
     required: true,
@@ -41,6 +48,14 @@ class UserModel {
     const userModel = new this.model(user);
     const response = await userModel.save();
     return response;
+  }
+
+  async get(username) {
+    const users = await this.model.findOne({
+      username: username,
+    });
+    console.log(users);
+    return users;
   }
 }
 
