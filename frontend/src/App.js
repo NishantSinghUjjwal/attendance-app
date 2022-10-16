@@ -1,11 +1,12 @@
 import React from "react";
 import Login from "./Login";
 import Register from "./Register";
+import DashBoard from "./DashBoard";
+import Attendance from "./Attendance";
 function App() {
   return (
     <div>
-      <Login />
-      <Register />
+      <Attendance />
     </div>
   );
 }
