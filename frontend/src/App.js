@@ -6,7 +6,8 @@ import Attendance from "./Attendance";
 function App() {
   return (
     <div>
-      <Attendance />
+      <Login />
+      {/* <Attendance /> */}
     </div>
   );
 }
