@@ -21,7 +21,14 @@ class SubjectService {
   async getList() {
     try {
       const subjects = await SubjectModel.getAll();
-      return subjects;
+      let res = [];
+      for (let i = 0; i < subjects.length; i++) {
+        res.push({
+          sub_code: subjects[i].sub_code,
+          sub_name: subjects[i].sub_name,
+        });
+      }
+      return res;
     } catch (error) {
       throw new Error(error.message);
     }
