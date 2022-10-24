@@ -4,6 +4,8 @@ const cors = require("cors");
 
 const UserRoutes = require("./src/routes/users.router");
 const SubjectRoutes = require("./src/routes/subjects.router");
+const StudentRoutes = require("./src/routes/students.router");
+const AttendanceRoutes = require("./src/routes/attendance.router");
 
 const app = express();
 
@@ -11,6 +13,8 @@ app.use(cors());
 app.use(express.json());
 app.use("/user", UserRoutes);
 app.use("/subject", SubjectRoutes);
+app.use("/student", StudentRoutes);
+app.use("/attendance", AttendanceRoutes);
 
 app.listen(4000, () => {
   console.log(`Attendance App Server Started on Port 4000...`);

@@ -14,8 +14,8 @@ class UserService {
   }
 
   async login(user) {
-    const userDB = await UserModel.get(user.username);
-    if (!userDB) return false;
+    const userDB = await UserModel.get(user);
+    if (!userDB) return { allow_login: false };
     const flag = bcrypt.compareSync(user.password, userDB.password);
     if (flag) {
       userDB.password = undefined;

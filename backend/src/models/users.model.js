@@ -7,7 +7,7 @@ const Schema = {
   },
   middle_name: {
     type: String,
-    required: true,
+    required: false,
   },
   last_name: {
     type: String,
@@ -26,6 +26,10 @@ const Schema = {
     },
   ],
   password: {
+    type: String,
+    required: true,
+  },
+  role: {
     type: String,
     required: true,
   },
@@ -51,9 +55,10 @@ class UserModel {
     return response;
   }
 
-  async get(username) {
+  async get(user) {
     const users = await this.model.findOne({
-      username: username,
+      username: user.username,
+      role: user.role,
     });
     console.log(users);
     return users;
