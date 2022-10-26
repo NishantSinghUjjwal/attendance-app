@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
-import axios from "axios";
+import { Link } from "react-router-dom";
 function Register() {
   const [userData, setUserData] = useState({
     username: "",
@@ -40,7 +40,6 @@ function Register() {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
-
   const sendData = async () => {
     try {
       const response = await fetch("http://localhost:4000/user/register", {
@@ -59,8 +58,6 @@ function Register() {
       const result = await response.json();
 
       console.log("result is: ", JSON.stringify(result, null, 4));
-
-      console.log(result);
     } catch (err) {
       console.log(err);
     }
@@ -136,7 +133,7 @@ function Register() {
         Register
       </button>
       <p className="suggestion">
-        Already a Teacher?<a>Login as Teacher</a>
+        Already a Teacher?<Link to="/login">Login as Teacher</Link>
       </p>
     </div>
   );

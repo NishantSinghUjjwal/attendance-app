@@ -15,13 +15,13 @@ class UserService {
 
   async login(user) {
     const userDB = await UserModel.get(user.username);
-    if (!userDB) return false;
+    if (!userDB) return { data: {}, allow_login: false };
     const flag = bcrypt.compareSync(user.password, userDB.password);
     if (flag) {
       userDB.password = undefined;
       return { user: userDB, allow_login: true };
     } else {
-      return { allow_login: false };
+      return { data: {}, allow_login: false };
     }
   }
 }
