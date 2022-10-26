@@ -29,10 +29,6 @@ const Schema = {
     type: String,
     required: true,
   },
-  role: {
-    type: String,
-    required: true,
-  },
   delete: {
     type: Boolean,
     required: true,
@@ -58,7 +54,6 @@ class UserModel {
   async get(user) {
     const users = await this.model.findOne({
       username: user.username,
-      role: user.role,
     });
     console.log(users);
     return users;
