@@ -52,6 +52,7 @@ class UserModel {
   }
 
   async get(user) {
+    console.log(user);
     const users = await this.model.findOne({
       username: user.username,
     });
