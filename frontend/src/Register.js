@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { Link } from "react-router-dom";
 function Register() {
@@ -100,6 +100,7 @@ function Register() {
         onChange={(e) => handleRegister(e)}
         value={userData.password}
       ></input>
+
       <div className="register-search-subject-container">
         <BiSearch className="search-icon" />
         <input
@@ -122,7 +123,6 @@ function Register() {
                 })
               }
               key={index}
-              value="hello"
             >
               {subject}
             </li>
