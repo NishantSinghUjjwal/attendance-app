@@ -10,29 +10,31 @@ function Login({ sendLogin }) {
 
   return (
     <div className="login-container">
-      <h1 className="login-heading">Login</h1>
+      <div className="login-main">
+        <h1 className="login-heading">Login</h1>
 
-      <input
-        className="login-input input"
-        name="username"
-        placeholder="Username"
-        onChange={(e) => handleLogin(e)}
-        value={loginData.username}
-      ></input>
-      <input
-        className="login-input input"
-        name="password"
-        placeholder="Password"
-        onChange={(e) => handleLogin(e)}
-        value={loginData.password}
-      ></input>
-      <button className="btn" onClick={() => sendLogin(loginData)}>
-        LogIn
-      </button>
-      <p className="suggestion">
-        Are u a New Teacher?
-        <Link to="/">Register as Teacher</Link>
-      </p>
+        <input
+          className="login-input input"
+          name="username"
+          placeholder="Username"
+          onChange={(e) => handleLogin(e)}
+          value={loginData.username}
+        ></input>
+        <input
+          className="login-input input"
+          name="password"
+          placeholder="Password"
+          onChange={(e) => handleLogin(e)}
+          value={loginData.password}
+        ></input>
+        <button className="btn" onClick={() => sendLogin(loginData)}>
+          LogIn
+        </button>
+        <p className="suggestion">
+          Are u a New Teacher?
+          <Link to="/">Register as Teacher</Link>
+        </p>
+      </div>
     </div>
   );
 }
