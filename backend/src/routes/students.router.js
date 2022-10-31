@@ -19,7 +19,7 @@ router.post("/add-Student", async (req, res) => {
   }
 });
 
-router.get("/fetch-by-class", async (req, res) => {
+router.post("/fetch-by-class", async (req, res) => {
   try {
     const student = await StudentService.getAllByClass(req.body);
     const response = {};
