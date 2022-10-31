@@ -1,5 +1,7 @@
 # attendance-app
 
+http://{{server_host}}:{{server_port}}/attendance/add-attendance
+
 {
 "att_date": "2022-10-27",
 "att_class": "fybcs",
