@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Student from "./Student";
 function Attendance() {
   const [studentList, setStudentList] = useState([]);
+
   function handleStudentSearch(e) {
     console.log(e.target.value);
     if (e.target.value === "") {
@@ -15,32 +16,18 @@ function Attendance() {
       setStudentList(newList);
     }
   }
-  function handlePresentee(presentee) {
-    setStudentList((prev) =>
-      prev.map((student) => {
-        if (student.rollno == presentee.rollno) {
-          return {
-            ...student,
-            absent: presentee.absent,
-            present: presentee.present,
-          };
-        } else {
-          return student;
-        }
-      })
-    );
-  }
-  async function getStudentByClass(e) {
+  function handlePresentee(togglePresent) {}
+  const getStudentByClass = async (e) => {
     try {
       console.log(e.target.value);
       const response = await fetch(
         "http://localhost:4000/student/fetch-by-class",
         {
-          method: "GET",
-          body: {
+          method: "POST",
+          body: JSON.stringify({
             std_class: e.target.value,
             year: 2022,
-          },
+          }),
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
@@ -54,10 +41,11 @@ function Attendance() {
 
       const result = await response.json();
       console.log("result is: ", JSON.stringify(result, null, 4));
+      setStudentList(result.payload);
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   function handlePresentAll(e) {
     setStudentList((prev) =>
