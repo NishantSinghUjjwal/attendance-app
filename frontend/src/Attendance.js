@@ -1,33 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Student from "./Student";
 function Attendance() {
-  const students = [
-    { simg: "", sname: "Andrew", rollno: 1, absent: false, present: true },
-    { simg: "", sname: "Bella", rollno: 2, absent: false, present: true },
-    { simg: "", sname: "Caroline", rollno: 3, absent: false, present: true },
-    { simg: "", sname: "Dash", rollno: 4, absent: false, present: true },
-    { simg: "", sname: "Jacob", rollno: 5, absent: false, present: true },
-    { simg: "", sname: "Max", rollno: 6, absent: false, present: true },
-    { simg: "", sname: "Jasmine", rollno: 7, absent: false, present: true },
-    { simg: "", sname: "Tobey", rollno: 8, absent: false, present: true },
-    { simg: "", sname: "Jack", rollno: 9, absent: false, present: true },
-    { simg: "", sname: "James", rollno: 10, absent: false, present: true },
-    { simg: "", sname: "Selena", rollno: 11, absent: false, present: true },
-    { simg: "", sname: "Emma", rollno: 12, absent: false, present: true },
-    { simg: "", sname: "Jake", rollno: 13, absent: false, present: true },
-    { simg: "", sname: "Adam", rollno: 14, absent: false, present: true },
-    { simg: "", sname: "Sam", rollno: 15, absent: false, present: true },
-    { simg: "", sname: "Mark", rollno: 16, absent: false, present: true },
-    { simg: "", sname: "Alexendar", rollno: 17, absent: false, present: true },
-    { simg: "", sname: "Jhon", rollno: 18, absent: false, present: true },
-    { simg: "", sname: "Chris", rollno: 19, absent: false, present: true },
-    { simg: "", sname: "Tony", rollno: 20, absent: false, present: true },
-  ];
-  const [studentList, setStudentList] = useState(students);
+  const [studentList, setStudentList] = useState([]);
   function handleStudentSearch(e) {
     console.log(e.target.value);
     if (e.target.value === "") {
-      setStudentList(students);
+      // setStudentList(students);
     } else {
       const newList = studentList.filter(
         (student) =>
@@ -52,6 +30,35 @@ function Attendance() {
       })
     );
   }
+  async function getStudentByClass(e) {
+    try {
+      console.log(e.target.value);
+      const response = await fetch(
+        "http://localhost:4000/student/fetch-by-class",
+        {
+          method: "GET",
+          body: {
+            std_class: e.target.value,
+            year: 2022,
+          },
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("result is: ", JSON.stringify(result, null, 4));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   function handlePresentAll(e) {
     setStudentList((prev) =>
       prev.map((student) => {
@@ -63,26 +70,20 @@ function Attendance() {
       })
     );
   }
-  useEffect(() => {
-    const fetchUser = async () => {
-      const response = await fetch("https://randomuser.me/api/?results=20");
-      const data = await response.json();
-      data.results.map((user, index) => {
-        students[index].simg = user.picture.medium;
-      });
-    };
-    fetchUser();
-  }, []);
+
   return (
     <div className="attendance-container">
       <div className="attendance-header">
         <input className="attendance-input" type="date"></input>
-        <select className="attendance-input year">
-          <option>F.Y B.C.S</option>
-          <option>S.Y B.C.S</option>
-          <option>T.Y B.C.S</option>
-          <option>F.Y M.C.S</option>
-          <option>S.Y M.C.S</option>
+        <select
+          className="attendance-input year"
+          onChange={(e) => getStudentByClass(e)}
+        >
+          <option value="fybcs">F.Y B.C.S</option>
+          <option value="sybcs">S.Y B.C.S</option>
+          <option value="tybcs">T.Y B.C.S</option>
+          <option value="fymcs">F.Y M.C.S</option>
+          <option value="symcs">S.Y M.C.S</option>
         </select>
         <select className="attendance-input subject">
           <option>Web FrameWorks</option>
