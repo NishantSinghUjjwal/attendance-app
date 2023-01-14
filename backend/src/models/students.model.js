@@ -74,6 +74,19 @@ class StudentModel {
     var students = this.getAllByClass(studentData);
     return students;
   }
+
+  async update(studentData) {
+    await this.model.updateOne(
+      {
+        roll_no: studentData.roll_no,
+        std_class: studentData.std_class,
+        year: studentData.year,
+      },
+      { ...studentData.changes }
+    );
+    var students = this.getAllByClass(studentData);
+    return students;
+  }
 }
 
 module.exports = new StudentModel();

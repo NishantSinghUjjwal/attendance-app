@@ -72,4 +72,22 @@ router.post("/delete-student", async (req, res) => {
   }
 });
 
+router.post("/edit-student", async (req, res) => {
+  try {
+    const students = await StudentService.updateStudent(req.body);
+    const response = {};
+    if (students) response.payload = students;
+    else response.payload = [];
+    response.success = true;
+    response.datetime = new Date();
+    res.send(response);
+  } catch (err) {
+    const response = {};
+    response.error = err.message;
+    response.success = true;
+    response.datetime = new Date();
+    res.status(500).send(response);
+  }
+});
+
 module.exports = router;

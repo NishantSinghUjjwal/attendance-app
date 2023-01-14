@@ -35,6 +35,15 @@ class StudentService {
       throw new Error(error.message);
     }
   }
+
+  async updateStudent(studentData) {
+    try {
+      const students = await StudentModel.update(studentData);
+      return students;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 }
 
 module.exports = new StudentService();
