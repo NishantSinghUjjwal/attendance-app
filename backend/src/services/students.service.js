@@ -26,6 +26,15 @@ class StudentService {
       throw new Error(error.message);
     }
   }
+
+  async deleteStudent(studentData) {
+    try {
+      const students = await StudentModel.remove(studentData);
+      return students;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 }
 
 module.exports = new StudentService();
