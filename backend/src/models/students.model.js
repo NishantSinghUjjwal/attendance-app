@@ -4,6 +4,7 @@ const Schema = {
   roll_no: {
     type: Number,
     required: true,
+    unique: true,
   },
   first_name: {
     type: String,
@@ -61,6 +62,29 @@ class StudentModel {
       std_class: studentData.std_class,
       year: studentData.year,
     });
+    return students;
+  }
+
+  async remove(studentData) {
+    await this.model.deleteOne({
+      roll_no: studentData.roll_no,
+      std_class: studentData.std_class,
+      year: studentData.year,
+    });
+    var students = this.getAllByClass(studentData);
+    return students;
+  }
+
+  async update(studentData) {
+    await this.model.updateOne(
+      {
+        roll_no: studentData.roll_no,
+        std_class: studentData.std_class,
+        year: studentData.year,
+      },
+      { ...studentData.changes }
+    );
+    var students = this.getAllByClass(studentData);
     return students;
   }
 }
