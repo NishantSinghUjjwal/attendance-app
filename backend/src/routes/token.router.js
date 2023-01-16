@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const AttendanceService = require("../services/attendance.service");
-const authToken = require("../middlewares/auth.middleware");
+const TokenService = require("../services/token.service");
 
-router.post("/add-attendance", authToken.tokenValidation, async (req, res) => {
+router.get("/fetch-token", async (req, res) => {
   try {
-    const attendance = await AttendanceService.addAttendance(req.body);
+    const data = await TokenService.fetchToken(req.body);
     const response = {};
-    response.payload = attendance;
+    response.payload = data;
     response.success = true;
     response.datetime = new Date();
     res.send(response);

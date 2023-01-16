@@ -6,6 +6,7 @@ const UserRoutes = require("./src/routes/users.router");
 const SubjectRoutes = require("./src/routes/subjects.router");
 const StudentRoutes = require("./src/routes/students.router");
 const AttendanceRoutes = require("./src/routes/attendance.router");
+const TokenRoutes = require("./src/routes/token.router.js");
 const { DB_USER, DB_PASSWORD } = require("./src/utils/constants");
 
 const app = express();
@@ -16,6 +17,7 @@ app.use("/user", UserRoutes);
 app.use("/subject", SubjectRoutes);
 app.use("/student", StudentRoutes);
 app.use("/attendance", AttendanceRoutes);
+app.use("/token", TokenRoutes);
 
 app.listen(4000, () => {
   console.log(`Attendance App Server Started on Port 4000...`);

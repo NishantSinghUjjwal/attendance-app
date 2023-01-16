@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt");
-
+const appConst = require("../constants/app.constant");
+const moment = require("moment");
+const jwt = require("jsonwebtoken");
 const UserModel = require("../models/users.model");
 class UserService {
   async register(user) {
@@ -17,9 +19,22 @@ class UserService {
     const userDB = await UserModel.get(user);
     if (!userDB) return { data: {}, allow_login: false };
     const flag = bcrypt.compareSync(user.password, userDB.password);
+    console.log("THE FLAG IN LOGIN : ", flag);
     if (flag) {
-      userDB.password = undefined;
-      return { user: userDB, allow_login: true };
+      try {
+        user.expireAt = moment().add(1, "hours");
+        const token = jwt.sign(user, appConst.privateSecretKey, {
+          expiresIn: 60 * 60,
+        });
+        console.log(token);
+        user.access_token = token;
+        console.log(token);
+        console.log(token);
+        return { user: userDB, allow_login: true };
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
     } else {
       return { data: {}, allow_login: false };
     }

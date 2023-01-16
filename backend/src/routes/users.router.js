@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const UserService = require("../services/users.service");
+const authToken = require("../middlewares/auth.middleware");
 
 router.post("/register", async (req, res) => {
   try {
@@ -19,8 +20,9 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", authToken.tokenValidation, async (req, res) => {
   try {
+    console.log(req.body);
     const user = await UserService.login(req.body);
     const response = {};
     response.payload = user;
