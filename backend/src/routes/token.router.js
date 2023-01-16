@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const TokenService = require("../services/token.service");
 
-router.get("/fetch-token", async (req, res) => {
+router.post("/fetch-token", async (req, res) => {
   try {
     const data = await TokenService.fetchToken(req.body);
     const response = {};
