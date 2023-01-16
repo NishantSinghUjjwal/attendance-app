@@ -1,22 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Student from "./Student";
 function Attendance() {
   const [studentList, setStudentList] = useState([]);
-
-  function handleStudentSearch(e) {
-    console.log(e.target.value);
-    if (e.target.value === "") {
-      // setStudentList(students);
-    } else {
-      const newList = studentList.filter(
-        (student) =>
-          ("" + student.rollno).includes(e.target.value) ||
-          student.sname.toLowerCase().startsWith(e.target.value)
+  const [presentArr, setPresentArr] = useState([]);
+  const [absentArr, setAbsentArr] = useState([]);
+  const [presentAll, setPresentAll] = useState(false);
+  function handleStudentSearch(e) {}
+  const takeAttendance = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:4000/attendance/add-attendance",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            att_date: `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`,
+            att_class: "fybcs",
+            att_subject: 104,
+            attendance: {
+              present: presentArr,
+              absent: absentArr,
+            },
+            att_year: 2022,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
       );
-      setStudentList(newList);
+
+      if (!response.ok) {
+        throw new Error(`Error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("result is: ", JSON.stringify(result, null, 4));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  function handlePresentee(togglePresent, rollno) {
+    if (togglePresent) {
+      const newAbsent = absentArr.filter((roll) => roll != rollno);
+      setAbsentArr(newAbsent);
+      setPresentArr((prev) => [...prev, rollno]);
+    } else {
+      const newPresent = presentArr.filter((roll) => roll != rollno);
+      setPresentArr(newPresent);
+      setAbsentArr((prev) => [...prev, rollno]);
     }
   }
-  function handlePresentee(togglePresent) {}
   const getStudentByClass = async (e) => {
     try {
       console.log(e.target.value);
@@ -48,15 +81,12 @@ function Attendance() {
   };
 
   function handlePresentAll(e) {
-    setStudentList((prev) =>
-      prev.map((student) => {
-        if (e.target.value == "Present All") {
-          return { ...student, present: true, absent: false };
-        } else {
-          return { ...student, absent: true, present: false };
-        }
-      })
-    );
+    // console.log(e.target.value);
+    if (e.target.value == "present") {
+      setPresentAll(true);
+    } else {
+      setPresentAll(false);
+    }
   }
 
   return (
@@ -89,8 +119,8 @@ function Attendance() {
           onChange={(e) => handleStudentSearch(e)}
         ></input>
         <select onChange={(e) => handlePresentAll(e)}>
-          <option>Present All</option>
-          <option>Absent All</option>
+          <option value="present">Present All</option>
+          <option value="absent">Absent All</option>
         </select>
       </div>
       <div className="attendance-main">
@@ -104,7 +134,7 @@ function Attendance() {
           ))}
         </div>
       </div>
-      <button className="btn take-attendance">
+      <button className="btn take-attendance" onClick={takeAttendance}>
         <div className="take-attendance-bg">Take Attendance</div>
       </button>
     </div>
