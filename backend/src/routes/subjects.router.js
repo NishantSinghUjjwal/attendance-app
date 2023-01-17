@@ -3,7 +3,7 @@ const router = express.Router();
 const SubjectService = require("../services/subjects.service");
 const authToken = require("../middlewares/auth.middleware");
 
-router.post("/add-subject", authToken.tokenValidation, async (req, res) => {
+router.post("/add-subject", async (req, res) => {
   try {
     const subject = await SubjectService.add(req.body);
     const response = {};
@@ -20,7 +20,7 @@ router.post("/add-subject", authToken.tokenValidation, async (req, res) => {
   }
 });
 
-router.get("/fetch-subject", authToken.tokenValidation, async (req, res) => {
+router.get("/fetch-subject", async (req, res) => {
   try {
     const subject = await SubjectService.getByCode(req.body);
     const response = {};
@@ -39,7 +39,7 @@ router.get("/fetch-subject", authToken.tokenValidation, async (req, res) => {
 
 router.get(
   "/fetch-subject-list",
-  authToken.tokenValidation,
+
   async (req, res) => {
     try {
       const subjects = await SubjectService.getList();

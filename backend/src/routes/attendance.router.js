@@ -3,7 +3,7 @@ const router = express.Router();
 const AttendanceService = require("../services/attendance.service");
 const authToken = require("../middlewares/auth.middleware");
 
-router.post("/add-attendance", authToken.tokenValidation, async (req, res) => {
+router.post("/add-attendance", async (req, res) => {
   try {
     const attendance = await AttendanceService.addAttendance(req.body);
     const response = {};

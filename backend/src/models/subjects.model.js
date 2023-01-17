@@ -9,16 +9,8 @@ const Schema = {
     type: String,
     required: true,
   },
-  sub_degree: {
+  sub_class: {
     type: String,
-    required: true,
-  },
-  sub_course: {
-    type: String,
-    required: true,
-  },
-  sub_year: {
-    type: Number,
     required: true,
   },
   delete: {

@@ -3,7 +3,7 @@ const router = express.Router();
 const StudentService = require("../services/students.service");
 const authToken = require("../middlewares/auth.middleware");
 
-router.post("/add-Student", authToken.tokenValidation, async (req, res) => {
+router.post("/add-Student", async (req, res) => {
   try {
     const student = await StudentService.add(req.body);
     const response = {};
@@ -20,7 +20,7 @@ router.post("/add-Student", authToken.tokenValidation, async (req, res) => {
   }
 });
 
-router.post("/fetch-by-class", authToken.tokenValidation, async (req, res) => {
+router.post("/fetch-by-class", async (req, res) => {
   try {
     const student = await StudentService.getAllByClass(req.body);
     const response = {};
@@ -37,7 +37,7 @@ router.post("/fetch-by-class", authToken.tokenValidation, async (req, res) => {
   }
 });
 
-router.get("/fetch-by-roll", authToken.tokenValidation, async (req, res) => {
+router.get("/fetch-by-roll", async (req, res) => {
   try {
     const students = await StudentService.getByRoll(req.body);
     const response = {};
@@ -55,7 +55,7 @@ router.get("/fetch-by-roll", authToken.tokenValidation, async (req, res) => {
   }
 });
 
-router.post("/delete-student", authToken.tokenValidation, async (req, res) => {
+router.post("/delete-student", async (req, res) => {
   try {
     const students = await StudentService.deleteStudent(req.body);
     const response = {};
@@ -73,7 +73,7 @@ router.post("/delete-student", authToken.tokenValidation, async (req, res) => {
   }
 });
 
-router.post("/edit-student", authToken.tokenValidation, async (req, res) => {
+router.post("/edit-student", async (req, res) => {
   try {
     const students = await StudentService.updateStudent(req.body);
     const response = {};

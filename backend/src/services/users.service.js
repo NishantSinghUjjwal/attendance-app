@@ -39,6 +39,15 @@ class UserService {
       return { data: {}, allow_login: false };
     }
   }
+
+  async fetchUserData(user) {
+    try {
+      const userData = await UserModel.get(user);
+      return userData;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 }
 
 module.exports = new UserService();

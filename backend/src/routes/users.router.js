@@ -20,10 +20,28 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", authToken.tokenValidation, async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     console.log(req.body);
     const user = await UserService.login(req.body);
+    const response = {};
+    response.payload = user;
+    response.success = true;
+    response.datetime = new Date();
+    res.send(response);
+  } catch (err) {
+    const response = {};
+    response.error = err.message;
+    response.success = true;
+    response.datetime = new Date();
+    res.status(500).send(response);
+  }
+});
+
+router.post("/fetch-user-data", async (req, res) => {
+  try {
+    console.log(req.body);
+    const user = await UserService.fetchUserData(req.body);
     const response = {};
     response.payload = user;
     response.success = true;
