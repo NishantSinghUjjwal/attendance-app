@@ -22,7 +22,7 @@ router.post("/add-attendance", async (req, res) => {
 
 router.post("/fetch-attendance-report", async (req, res) => {
   try {
-    const attendance = await AttendanceService.getStudentReport();
+    const attendance = await AttendanceService.getStudentReport(req.body);
     const response = {};
     response.payload = attendance;
     response.success = true;

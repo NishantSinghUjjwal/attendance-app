@@ -44,6 +44,7 @@ class AttendanceModel {
   }
 
   async getStudentReport(params) {
+    console.log(params);
     var attendances = await this.model.find({ delete: false });
     console.log(attendances);
     var result = [];
@@ -71,33 +72,31 @@ class AttendanceModel {
     var presentee = 0;
     var absentee = 0;
     console.log(result);
-    if (result?.length != 0) {
-      for (let j = 0; j < result?.length; j++) {
-        for (let k = 0; k < result[j]?.present?.length; k++) {
-          if (result[j]?.present[k] == params?.roll) {
-            presentee = presentee + 1;
-          }
-        }
-        for (let l = 0; l < result[j]?.absent?.length; l++) {
-          if (result[j]?.absent[l] == params?.roll) {
-            absentee = absentee + 1;
-          }
+
+    for (let j = 0; j < result?.length; j++) {
+      for (let k = 0; k < result[j]?.present?.length; k++) {
+        if (result[j]?.present[k] == params?.roll) {
+          presentee = presentee + 1;
         }
       }
-      console.log(presentee);
-      console.log(absentee);
-      let student_report = {
-        std_roll: params?.roll,
-        subject: params?.sub,
-        month: params?.month,
-        year: params?.year,
-        absent: absentee,
-        present: presentee,
-      };
-      return student_report;
-    } else {
-      return { msg: "No Record Found" };
+      for (let l = 0; l < result[j]?.absent?.length; l++) {
+        if (result[j]?.absent[l] == params?.roll) {
+          absentee = absentee + 1;
+        }
+      }
     }
+    console.log(presentee);
+    console.log(absentee);
+    let student_report = {
+      std_roll: params?.roll,
+      subject: params?.sub,
+      month: params?.month,
+      year: params?.year,
+      absent: absentee,
+      present: presentee,
+    };
+    console.log(student_report);
+    return student_report;
   }
 }
 

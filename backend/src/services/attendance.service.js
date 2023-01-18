@@ -12,9 +12,9 @@ class AttendanceService {
     }
   }
 
-  async getStudentReport() {
+  async getStudentReport(params) {
     try {
-      const response = AttendanceModel.getStudentReport();
+      const response = AttendanceModel.getStudentReport(params);
       return response;
     } catch (error) {
       throw new Error(error.message);
