@@ -11,6 +11,15 @@ class AttendanceService {
       throw new Error(error.message);
     }
   }
+
+  async getStudentReport() {
+    try {
+      const response = AttendanceModel.getStudentReport();
+      return response;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 }
 
 module.exports = new AttendanceService();
