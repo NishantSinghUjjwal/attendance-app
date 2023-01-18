@@ -46,6 +46,17 @@ class SubjectModel {
     const subjects = await this.model.find({}, { sub_name: 1, sub_code: 1 });
     return subjects;
   }
+
+  async update(subjectData) {
+    await this.model.updateOne(
+      {
+        sub_code: subjectData.changes.sub_code,
+      },
+      { ...subjectData.changes }
+    );
+    var subjects = this.getAll(subjectData);
+    return subjects;
+  }
 }
 
 module.exports = new SubjectModel();

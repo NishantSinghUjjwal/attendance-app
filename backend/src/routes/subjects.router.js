@@ -58,4 +58,25 @@ router.get(
   }
 );
 
+router.post(
+  "/edit-subject",
+
+  async (req, res) => {
+    try {
+      const subjects = await SubjectService.editSubject(req.body);
+      const response = {};
+      response.payload = subjects;
+      response.success = true;
+      response.datetime = new Date();
+      res.send(response);
+    } catch (err) {
+      const response = {};
+      response.error = err.message;
+      response.success = true;
+      response.datetime = new Date();
+      res.status(500).send(response);
+    }
+  }
+);
+
 module.exports = router;

@@ -33,6 +33,15 @@ class SubjectService {
       throw new Error(error.message);
     }
   }
+
+  async editSubject(subjectData) {
+    try {
+      const subject = await SubjectModel.update(subjectData);
+      return subject;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 }
 
 module.exports = new SubjectService();
