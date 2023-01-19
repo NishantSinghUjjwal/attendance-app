@@ -50,7 +50,7 @@ class SubjectModel {
   async update(subjectData) {
     await this.model.updateOne(
       {
-        sub_code: subjectData.changes.sub_code,
+        sub_code: subjectData.code,
       },
       { ...subjectData.changes }
     );
