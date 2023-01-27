@@ -22,6 +22,7 @@ app.use("/token", TokenRoutes);
 app.listen(4000, () => {
   console.log(`Attendance App Server Started on Port 4000...`);
   const url = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@attendance-app.wrctwkv.mongodb.net/?retryWrites=true&w=majority`;
+  //mongodb://localhost:27017  (to connect with local mongoDB server)
   const connectionParams = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
