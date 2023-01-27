@@ -1,5 +1,11 @@
 import React from "react";
-import ReactDom from "react-dom";
+import ReactDOM from "react-dom";
 import App from "./App";
+import { AppProvider } from "./components/context";
 import "./style.css";
-ReactDom.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <AppProvider>
+    <App />
+  </AppProvider>,
+  document.getElementById("root")
+);
